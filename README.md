@@ -222,3 +222,123 @@ OpenvSwitch
 : VLAN 등 연결 가능한 포트 및 네트워크를 구성 가능한 스위치로 사용 가능
 
 : 클라우드 환경에서 오픈 소스 기반으로 구축시 소프트웨어 기반 스위치로 주로 활용
+
+## 오픈스택
+OpenStack 이란?
+
+- 클라우드 환경에서 컴퓨팅 자원과 스토리지 인프라를 셋업하고 구동하기 위해 사용하는 오픈 소스 소프트웨어 프로젝트의 집합
+
+OpenStack에 대한 다른 정의들
+
+- OpenStack은 공용(Public) 클라우드와 사설(Private) 클라우드 구축을 가능하게 하는 오픈소스 소프트웨어
+- OpenStack은 서버, 스토리지, 네트워크들과 같은 자원들을 모두 모아, 이들을 제어하고 운영하기 위한 클라우드 Operating System
+- OpenStack은 오픈 소스를 기반으로 클라우드를 구축하고 운용하고자 하는 오픈 소스 개발자, 회사, 사용자들이 주축이 되어 발전하는 커뮤니티
+- IaaS 형태의 클라우드 컴퓨팅 오픈소스 프로젝트로 컴퓨팅, 스토리지, 네트워킹 자원을 관리하는 여러 개의 하위 프로젝트들로 이루어짐
+
+OpenStack의 성장
+
+- 빠른 글로벌 오픈소스 커뮤니티 성장세
+
+OpenStack : Production 환경
+
+- 코어 ≥ 5,000,000 개가 Production 환경에서 사용 중 (2017년 4월 통계)
+- 전체 OpenStack 환경 중 2/3 (그 외 : 개발용, QA용, PoC...)
+
+OpenStack을 사용하는 곳
+
+- 국내 : KBS, 현대자동차, 넷마블, 카카오 등
+- 월마트, 이베이, 페이팔, 하버드대학교, MIT
+
+OpenStack 역사
+
+- OpenStack 핵심 컨트리뷰터
+- 초기 : Rackspace & NASA
+- Rackspace : OpenStack의 Object Storage라고 하는 "Cloud Files" 부분 플랫폼을 개발하는데 기여하기 시작
+- NASA : 기존 "Nebula" 플랫폼을 발전시켜 컴퓨팅 자원 플랫폼을 개발하는 데 기여
+- 2012년 5월 : NASA와 OpenStack 관계 종료
+- 2012년 9월 : VMWare사 가 OpenStack foundation에 가입
+- 그리고, 많은 회원사 & 참여자들이 참여하고 있음
+
+OpenStack 릴리즈
+
+- 6개월 주기로 릴리즈 발표
+- 릴리즈 : 개발자 서밋 & 미팅에 맞추어 계획됨
+- 2016년까지 OpenStack Summit에서 개발자 회의가 진행됨 (OpenStack Design Summit)
+- 2017년부터 PTG (Project Team Gathering)이라는 이름으로 별도 개발자 행사 개최
+- 기본적으로 업그레이드 버전업 미지원 (최근부터 지원하기 시작)
+- 새로운 특징 및 핵심 기능들은 보통 1년을 주기로 많은 변화가 생김
+
+OpenStack 릴리즈 이름
+
+- 차후 Summit이 개최되는 장소와 관련된 지명 등을 중심으로 설문 후 법적 이슈가 없는 이름을 선택
+- N : Austin 서밋이 개최된 근처에 Newton House가 있음
+- O : Olimpic이 설문 1위였으나, Olympic과의 유사성 등으로 3위로 선정된 Barcelona 근처 해변 이름인 Ocata가 선정
+
+OpenStack 구성요소
+
+자원 종류 → OpenStack 구성요소 이름
+
+Compute (컴퓨팅) → Nova
+
+Storage (스토리지) → Swift (Objects), Cinder (Block), Glance (Images)
+
+Identity (인증) → Keystone
+
+Network (네트워크) → (Quantum) Neutron
+
+OpenStack 구성 요소 → (조금 더 쉽게 보면)
+
+- Nova (VM 인스턴스 관리)
+- Swift (Object 스토리지 관리)
+- Glance (VM 이미지 관리)
+- Keystone (통합 인증 관리)
+- Horizon (웹 관리 포털)
+- Neyutron (가상 네트워크 관리)
+- Heat (템플릿 관리)
+- Ceilometer (Metering 관리)
+
+소프트웨어로 클라우드 인프라를 자동화하는 OpenStack
+
+프로그래머블 인프라
+
+- Compute, 네트워킹, 스토리지를 관리하는 API 공통 집합
+
+단일 플랫폼
+
+- 가상머신, 컨테이너, 베어메탈
+
+→ "오픈" 소스, 디자인, 개발, 커뮤니티
+
+Datacenter Cloud (Infrastructure)
+
+Container (Infrastructure)
+
+Edge (Infrastructure)
+
+CI/CD (Continuous Integration & Continuous Delivery)
+
+새로운 기술 : 커뮤니티 간 협력
+
+Containers : 쿠버네티스, 도커, 메소스
+
+PaaS : Cloud Foundry, OpenShift
+
+NFV : OPNFV, Cloudify
+
+Provisioning : Terraform, puppet, ANSIBL, SALTSTACK
+
+테스트 : 커뮤니케이션 & 피드백
+
+- OpenStack CI 테스트
+- OpenStack 서밋 & 포럼
+- PTG (Project Team Gathering)
+
+OpenStack과 하이브리드 클라우드
+
+Private Cloud
+
+- openstack
+
+Public Cloud
+
+- 구글 클라우드 플랫폼, AWS, Azure
