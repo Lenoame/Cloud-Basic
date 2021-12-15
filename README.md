@@ -342,3 +342,135 @@ Private Cloud
 Public Cloud
 
 - 구글 클라우드 플랫폼, AWS, Azure
+
+## 오픈스택과 비즈니스 에코시스템
+OpenStack 생태계 : 업스트림과 다운스크림의 상호 교류
+
+업스트림 활동
+
+- 개발 : 코드 컨트리뷰션
+- 문서화
+- 번역
+- 개발 항목 & 스펙 정의
+- 버그 수정
+- ...
+
+다운스트림 활동
+
+- 배포된 릴리즈 설치 & 사용
+- 사용자 피드백
+- 비즈니스 도입
+- 유스케이스 & 이점 공유
+- Marketing 메세지 & 전략
+- ...
+
+OpenStack 거버넌스
+
+- OpenStack Foundation : OpenStack을 "개발, 지원, 보호, 홍보" 하기 위해 만들어진 비영리 재단
+- 개인 멤버 : [www.openstack.org](http://www.openstack.org) 에 "Foundation Member"로 가입한 모두
+- 기관 멤버 : 플래티넘과 골드 스폰서
+- 뿐만 아니라 여러 지원을 하는 회사 및 기관이 많습니다.
+
+- 여러 계층으로 구성된 리더쉽
+- 이사회 (Board of Directors)
+- 기술 위원회 (Technical Committee) : ATC (Active Project Contributor) 와 ATC (Active Technical Contributor)
+- 사용자 위원회 (User Committee) : AUC (Active User Contributor)
+
+OpenStack을 바라보는 기업의 관점
+
+- OpenStack을 도입/사용하고자 하는 기업
+- 자체 인프라 관리에 도입
+- 새로운 인프라 구축에 OpenStack 활용
+
+vs
+
+- OpenStack 생태계에 합류하고자 하는 기업
+- 기업 소프트웨어 개발에 있어 OpenStack 활용
+- OpenStack 활성화가 기업 제품 판매 활성화에 영향
+- OpenStack 방향에 따른 기업 수익성 영향 고려
+
+OpenStack을 도입한 글로벌 기업
+
+- OpenStack 도입 글로벌 기업
+    - Best Buy
+    - BMW
+    - Comcast
+    - Disney
+    - WalMart
+    - 카카오
+    - 넷마블
+    - ...
+
+OpenStack 생태계에서의 글로벌 기업
+
+- 배포판 제공 회사
+    - Canonical
+    - RedHat
+    - HP (현재 HP Enterprise)
+    - Oracle
+    - ...
+- x86 (서버) 제조사
+    - Dell
+    - HP
+    - ...
+- (소프트웨어 정의) 네트워킹
+    - Cisco
+    - Arista
+    - ...
+
+글로벌 기업들의 OpenStack 오픈소스 적극 참여
+
+- OpenStack 코드 기여에 참여한 글로벌 기업
+    - [https://www.stackalytics.com](https://www.stackalytics.com) 에서 확인 가능
+- 주요회사
+    - Red Hat
+    - VMware
+    - Cisco
+    - Canonical
+    - ...
+
+- 참여 이점
+    - 자사에서 제작하는 S/W code에도 연관
+    - 일부 회사 소식 개발자 : 오픈 소스 기여가 회사 업무
+    - 오픈소스를 통한 개발력 향상
+    - 자사 방향과 오픈소스의 개발 방향을 일치시키기도 한다
+
+OpenStack : Nova
+
+- Nova
+    - 가상 머신 자원을 관리하는 OpenStack의 구성 요소 중 하나입니다
+
+OpenStack Nova의 발전
+
+- 최초 릴리즈인 Austin에는 Nova와 Swift (오브젝트 스토리지 관리)만 존재
+- 오픈 소스 하이퍼바이저 위주로 지원 시작
+    - Xen+Libvirt
+    - KVM
+    - XenAPI (for XenServer)
+    - QEMU
+- 참고 : 네트워크 관리에 대해서는, 가상 인스턴스 관리와 동시에 관리되어야 한다고 생각하여 Nova-network 라는 하위 구성 요소를 두어 발전 → 후에 Quantum / Neutron으로 발전
+
+OpenStack & (Vendor) 드라이버
+
+- 다양한 상용 / 오픈 소스 하이퍼바이저, 스토리지, 네트워크 장비 등과 호환성이 높음
+
+다양한 상용 하이퍼바이저 지원 시작
+
+- 시작은 사실 XenServer 부터 ...
+- (Xen 기반 상용 하이퍼바이저이기에 상대적으로 쉬웠을 듯)
+
+Nova 지원 하이퍼바이저
+
+- [https://docs.openstack.org/developer/nova/support-matrix.html](https://docs.openstack.org/developer/nova/support-matrix.html)
+- (Note : 몇몇 정보는 업데이트되지 않았을 수 있습니다)
+
+사실 Hyper-V도 초창기부터...
+
+- Nova 소스 저장소 : [https://git.openstack.org/cgit/openstack/nova](https://git.openstack.org/cgit/openstack/nova)
+
+2012년 10월, Folsom Summit에서 발표
+
+OpenStack : not only Nova but also...
+
+- 실제 고려시에는 네트워크, 스토리지 등 다방면 고려 필요
+- Cloudbase
