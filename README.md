@@ -474,3 +474,31 @@ OpenStack : not only Nova but also...
 
 - 실제 고려시에는 네트워크, 스토리지 등 다방면 고려 필요
 - Cloudbase
+
+## 오픈스택 설치시스템 준비
+가상 서버 준비하기 - Hypervisor 설치 전 준비
+
+최소사양
+
+- CPU : 4 core 이상
+- Memory : 4GB 이상
+- Disk : 500GB
+
+권장사양
+
+- Memory : 8GB 이상 (Single instance 이상의 경우 인스턴스 메모리 크기 * 인스턴스의 개수)
+
+우분투 설치하기 - 우분투 DeskTop 설치 - VIrtualBox 에서 VM 생성
+
+네트워크 테스트 베드 구성하기
+
+- 유무선 네트워크 → 인터넷 공유기(라우터) → 모뎀 → 인터넷
+
+네트워크 구성도
+
+인터넷 → AP 192.168.0.1 → 192.168.0.101 → VirtualBox를 이용한 오픈스택 설치 → 우분투 서버
+
+우분투 명령어
+
+- nano → 편집기 명령어 + 경로
+- ifconfig → 설정 되있는 네트워크 목록 확인
