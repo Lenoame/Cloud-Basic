@@ -502,3 +502,56 @@ OpenStack : not only Nova but also...
 
 - nano → 편집기 명령어 + 경로
 - ifconfig → 설정 되있는 네트워크 목록 확인
+
+## DevStack
+DevStack 이란?
+
+- 복잡한 오픈스택 시스템을 자동으로 설치하여 어떻게 동작하는지 알기 위한 프로젝트
+- 오픈스택을 처음 접하는 유저에게 추천
+- 오픈스택의 프로젝트의 All-in-One 설치를 제공하며, 어떤 구성요소들이 있는지 확인할 수 있음
+- [https://docs.openstack.org/devstack/latest/](https://docs.openstack.org/devstack/latest/)
+
+DevStack 설치를 위한 사전 준비
+
+- 최신 버전의 Virtualbox
+- Intel : VT-d, VT-x / AMD : AMD-V를 지원하는 64비트 CPU
+- 8GB이상의 RAM
+- Ubuntu Server LTS 최신버전 VM에 설치
+- DevStack 프로젝트 repository
+- VM으로 DevStack Clone
+- local.conf 설정
+
+DevStack 설치
+
+- 이전 영상에서 “stack” 사용자를 생성하지 않은 경우 : stack 유저 추가
+    - $ sudo useradd -U -G sudo -s /bin/bash -m stack
+    - $ echo “stack ALL=(ALL) NOPASSWD: ALL” | sudo tee /etc/sudoers.d/stack
+    - $ sudo passwd stack
+    - $ sudo su - stack
+
+- Devstack 다운로드
+    - $ git clone -b stable/pike [https://git.openstack.org/openstack-dev/devstack](https://git.openstack.org/openstack-dev/devstack)
+    - $ cd devstack
+
+주의사항
+
+- Ubuntu 최신으로 업그레이드 할 것
+    - 이전 영상에서 업그레이드 선택 안했을 때
+    - $ sudo apt update && sudo apt dist-upgrade && sudo apt install git
+- local.conf 파일 생성하기
+- 설치 시작
+    - ./stack.sh
+
+설치 데모 : 네트워크 구성 한경
+
+- 로컬 영역 연결 1 : 인터넷 연결
+- VIrtualBox → 로컬 영역 연결 2 : 호스트 네트워크 192.168.56.1
+- API request → Nova API → Compute → enp0s8 : 인터넷 연결
+- 가상 머신 → Other components → enp0s3 : 호스트 네트워크 192.168.56.101
+
+DevStack 설치 후 주의사항
+
+- DevStack이 설치된 VM의 OS를 종료하지 말고 스탭샷을 만드시오
+- DevStack이 VM 내에서 종료해야 할 경우 unstack.sh를 이용하시오
+- github에서 DevStack을 Clone한 뒤 실행 전 branch를 버전에 맞게 checkout하여 주십시오
+- Virtualbox에서 32bit 옵션만 있는 경우 BIOS에서 Virtualization Technology 활성화와 Hyper-V가 꺼져 있는지 확인하여 주십시오
