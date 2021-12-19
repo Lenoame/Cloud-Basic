@@ -646,3 +646,129 @@ Flavor
 6. 볼륨생성
 
 ssh 접속과 볼륨 연결 확인
+
+## CLI로 오픈스택 사용하기
+OpenStack CLI 소개
+
+- CLI : Command-Line Interface
+- OpenStack 각 구성 요소에 대한 API를 직접 호출하여 원하는 작업을 명령어로 수행
+- 참고 : OpenStack은 각 구성요소별로 API 제공
+- Nova (Compute API) : [https://developer.openstack.org/api-ref/compute](https://developer.openstack.org/api-ref/compute)
+- Neutron (Networking API) : [https://developer.openstack.org/api-ref/networking](https://developer.openstack.org/api-ref/networking)
+- Keystone (Identity API) : [https://developer.openstack.org/api-ref/identity](https://developer.openstack.org/api-ref/identity)
+- ...
+- 통합 CLI 툴 제작
+- 이전에는 Nova / Neutron / Keystone 등 따로 CLI 명령어를 사용해야 했음
+- 현재 통합 클라이언트 : openstackclient (명령어 : “openstack”)
+
+OpenStack CLI 활용하기
+
+- 참고 문서 : 한글 OpenStack 설치 가이드 (URL : [https://docs.openstack.org/ko_KR/install-guide](https://docs.openstack.org/ko_KR/install-guide) )
+- 데모는 Ocata 버전을 기준으로 하나, 차후 버전에서도 동일 방식으로 사용 가능
+- 클라이언트 환경 스크립트 : [https://docs.openstack.org/ocata/ko_KR/install-guide-ubuntu/keystone-openrc.html](https://docs.openstack.org/ocata/ko_KR/install-guide-ubuntu/keystone-openrc.html) (참고 : DevStack 환경에서는 “source openrc [사용자명] [프로젝트명]” 을 사용)
+- 이미지 올리기 : [https://docs.openstack.org/ocata/ko_KR/install-guide-ubuntu/glance-verify.html](https://docs.openstack.org/ocata/ko_KR/install-guide-ubuntu/glance-verify.html)
+- 인스턴스 생성 (네트워크, 볼륨 등 포함) : [https://docs.openstack.org/ocata/ko_KR/install-guide-ubuntu/launch-instance.html](https://docs.openstack.org/ocata/ko_KR/install-guide-ubuntu/launch-instance.html)
+
+이미지 올리기 (Glance service)
+
+```
+. openrc admin
+wget https://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-disk.img
+
+oepnstack image list // 현재 이미지 목록
+openstack image create "cirros" \
+> --file cirros-0.3.5-x86_64-disk.img \
+> --disk-format qcow2 --container-format bare \
+> --public
+\ 을 사용하면 줄바꿔서 명령어를 사용할 수 있다
+```
+
+각종 OS 이미지 다운로드 URL : https//docs.openstack.org/image-guide/obtain-images.html 
+
+이미지 업로드시 사용하는 CLI 명령어
+
+```
+openstack image create
+옵션
+--file cirros-0.3.5-x86_64-disk.img // 파일명을 지정
+--container-format bare // 컨테이너 포맷 방식
+--public 모든 프로젝트가 공유 허용할건지 정의
+```
+
+디스크 포맷 방식에 종류 URL : [https://docs.openstack.org/image-guide/image-formats.html](https://docs.openstack.org/image-guide/image-formats.html) 
+
+프로젝트 네트워크 생성
+
+1. 컨트롤러 노드에서 demo ccredential을 소스로 하여 사용자 전용 CLI 명령에 대한 엑세스를 갖습니다.
+2. 네트워크 생성
+3. 네트워크에 서브넷을 생성
+
+```
+source openrc demo
+openstack network list
+
+openstack network create selfservice
+openstack subnet create --network selfservice --dns-nameserver 8.8.8.8 --gateway 172.16.1.1 --subnet-range 172.16.1.0/24 selfservice
+```
+
+라우터 생성
+
+```
+. openrc demo
+
+openstack router list
+
+라우터 생성
+openstack router create router
+
+셀프 서비스 네트워크 서브넷을 라우터에 인터페이스로 추가합니다
+neutron router-interface-add router self-service
+
+게이트웨이를 라우터에 대한 프로바이더 네트워크로 설정합니다
+neutron router-gateway-set router provider
+
+퍼블릭 네트워크로 설정합니다
+neutron router-gateway-set router public
+```
+
+인스턴스 생성
+
+flavor
+
+```
+openstack flavor list
+
+openstack flavor create --id 0 --vcpus 1 --ram 64--disk 1 m0.nano
+
+source openrc admin
+
+. openrc demo
+
+```
+
+네트워크 생성한 NET ID와 인스턴스 연결 필요
+
+```
+openstack server create --flavor m0.nano --image cirros --nic net-id // copy 시키기
+
+openstack network list
+
+openstack server create --flavor m0.nano --image cirros --nic net-id 아이디 --security-group default selfservice-instance
+
+```
+
+블록 스토리지
+
+```
+.openrc demo
+openstack volume create --size 1 volume1
+
+openstack volume list
+
+openstack server add volume selfservice-instance volume1
+
+```
+
+1. 볼륨을 인스턴스에 연결
+2. 볼륨 목록
+3. SSH 상용하여 인스턴스에 엑세스 하고 /dev/vdb 블록 스토리지 장치에 대한 볼륨 검증 fdisk 명령어 사용
