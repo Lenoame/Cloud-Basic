@@ -772,3 +772,60 @@ openstack server add volume selfservice-instance volume1
 1. 볼륨을 인스턴스에 연결
 2. 볼륨 목록
 3. SSH 상용하여 인스턴스에 엑세스 하고 /dev/vdb 블록 스토리지 장치에 대한 볼륨 검증 fdisk 명령어 사용
+
+## 오픈스택과 REST API
+잠깐 : API에 관해서
+
+- API (Application Programming Interface)
+- 프로그램과 프로그램이 서로 명령을 주고 받기 위해 미리 약속해둔 일종의 규칙
+
+API로 클라우드 인프라를 관리하려면
+
+- API 파악시 장점
+- 어떤 구성 요소가 있는지 파악 가능
+- 추상화되어 있는 기능에 대한 자세한 이해
+- 시스템  구축 표준화 방안 마련
+
+- OpenStack : CLI와 API의 차이점
+- CLI에서 수행하는 모든 명령어를 API 호출로 사용 가능
+- API를 활용하면 다양한 아이디어를 붙여 클라우드 소프트웨어를 만들 수 있음
+- 다른 클라우드와 상호 연동 가능
+- OpenStack 일부 구성 요소만을 사용하여 클라우드 서비스를 구축 가능
+
+OpenStack App Hackathon
+
+- 2016년 Taiwan을 시작으로 Mexico, 호주 등 다양한 국가에서 개최
+- 40여 시간동안 클라우드 API를 활용한 OpenStack App을 개발
+- OpenStack App 개발을 위한 다양한 문서  [https://www.openstack.org/appdev/](https://www.openstack.org/appdev/)
+- FirstApp 문서 : OpenStack App 첫 개발을 위한 내용을 문서로 정리
+
+클라우드 인프라를 API로 다루기 위해 필요한 것들
+
+1. API를 제공하는 주체 (서버 파트)
+- “API 액세스” 메뉴에서 API 목록 확인
+1. API를 사용하는 주체 (모바일 앱 with Fuse, CLI, ...)
+- 먼저, curl로 간단히 테스트 하기 전에.. 문서를 봅시다
+- 일단 인증 기본이 되는 토큰을 가져와야 API 사용이 가능)
+- OpenStack Keystone : API v2와 v3가 있음
+- API URL을 알아냄 → https://[server URL]/identity/v3/auth/toekns
+- Postman : GUI 환경으로 API 테스트가 용이함
+- 모바일 앱에서 테스트를 해 보려면? 일단 프로토타이핑이 필요한데...
+- Fuse로 만드는 방법 : 자스크립트로 REST API 통신
+
+Client (HTTP POST)
+
+Server (REST Interface)
+
+JSON/REST/HTTP
+
+GET/POST 방식
+
+```
+bash
+ssh stack@192.168.56.101
+OS_TOKEN=[X-subject-Toekn]
+OS_COMPUTE_API=https://[Server URL]/compute/v2.1
+curl -s -H "X-Auth-Token: $OS_TOKEN" \
+$OS_COMPUTE_API/flavor
+
+```
